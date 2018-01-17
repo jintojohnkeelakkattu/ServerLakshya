@@ -24,6 +24,7 @@ namespace AdminSolution.Models
         }
         [Required]
         [StringLength(50)]
+        [JsonProperty("clientAddress")]
         public string clientAddress
         {
             get;
@@ -31,19 +32,23 @@ namespace AdminSolution.Models
         }
         [Required]
         [StringLength(50)]
+        [JsonProperty("emailAddress")]
         public string emailAddress
         {
             get;
             set;
         }
         [Required]
+
         [StringLength(50)]
+        [JsonProperty("contactNumber")]
         public string contactNumber
         {
             get;
             set;
         }
         [Required]
+        [JsonProperty("alternateNumber")]
         [StringLength(50)]
         public string alternateNumber
         {

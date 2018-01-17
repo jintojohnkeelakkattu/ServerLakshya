@@ -8,21 +8,30 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using static AdminSolution.DataLayer.DBLayer;
+using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace AdminSolution
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var config = new ConfigurationBuilder()
+                        .SetBasePath(env.ContentRootPath)
+                        .AddJsonFile("appsettings.json");
+                        Configuration = config.Build();
+
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddAutoMapper();
             services.AddMvc();
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
@@ -30,6 +39,9 @@ namespace AdminSolution
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
+
+            services.AddDbContext<DbLayerContext>(options =>
+       options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +56,8 @@ namespace AdminSolution
 
             app.UseMvc();
             // app.UseMvcWithDefaultRoute();
-            app.UseMvc(route => {
+            app.UseMvc(route =>
+            {
                 route.MapRoute(
                 name: "default",
                 template: "{controller}/{action}/{id?}",

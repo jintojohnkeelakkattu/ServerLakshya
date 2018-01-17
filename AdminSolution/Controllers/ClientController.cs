@@ -8,6 +8,8 @@ using System.Net.Http;
 using AdminSolution.Models;
 using Microsoft.AspNetCore.Cors;
 using System.Net;
+using AutoMapper;
+using AdminSolution.DataLayer;
 
 namespace AdminSolution.Controllers
 {
@@ -16,6 +18,11 @@ namespace AdminSolution.Controllers
     //[Produces("application/json")]
     public class ClientController : Controller
     {
+        private readonly IMapper _mapper;
+        public ClientController(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
         [HttpPost]
         public HttpResponseMessage postRegisterClient([FromBody]ClientContact obClientContact)
         {
@@ -23,9 +30,11 @@ namespace AdminSolution.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var user = _mapper.Map<ClientContacts>(obClientContact);
                     return new HttpResponseMessage(HttpStatusCode.OK);
                 }
-                else
+                    
+               else
                 {
                     return new HttpResponseMessage(HttpStatusCode.Unauthorized);
                 }
