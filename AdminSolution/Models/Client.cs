@@ -14,42 +14,41 @@ namespace AdminSolution.Models
 
     public class ClientContact
     {
-        [Required]
         [StringLength(50)]
+        [Required(ErrorMessage = "ClientName is Must")]
         [JsonProperty("clientName")]
         public string clientName
         {
             get;
             set;
         }
-        [Required]
         [StringLength(50)]
+        [Required(ErrorMessage = "ClientAddress is Must")]
         [JsonProperty("clientAddress")]
         public string clientAddress
         {
             get;
             set;
         }
-        [Required]
-        [StringLength(50)]
+        [Required(ErrorMessage = "Email is Must")]
         [JsonProperty("emailAddress")]
+        [EmailAddress(ErrorMessage = "Not a valid email")]
         public string emailAddress
         {
             get;
             set;
         }
-        [Required]
-
-        [StringLength(50)]
+        [Required(ErrorMessage = "ContactNumber is Must")]
+        [MaxLength(10, ErrorMessage = "Must be Maximum 10 numbers")]
         [JsonProperty("contactNumber")]
         public string contactNumber
         {
             get;
             set;
         }
-        [Required]
+        [Required(ErrorMessage = "AlternateNumber is Must")]
+        [MaxLength(10, ErrorMessage = "Must be Maximum 10 numbers")]
         [JsonProperty("alternateNumber")]
-        [StringLength(50)]
         public string alternateNumber
         {
             get;

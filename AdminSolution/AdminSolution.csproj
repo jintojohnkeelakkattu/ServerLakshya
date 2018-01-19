@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\CustomizedActionFilters\Controllers\" />
+    <Folder Include="Areas\CustomizedActionFilters\Data\" />
+    <Folder Include="Areas\CustomizedActionFilters\Models\" />
+    <Folder Include="Areas\CustomizedActionFilters\Views\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

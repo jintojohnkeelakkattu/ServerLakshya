@@ -16,7 +16,7 @@ namespace AdminSolution.Controllers
     
     [EnableCors("MyPolicy")]
     //[Produces("application/json")]
-    public class ClientController : Controller
+    public class ClientController : HomeController
     {
         private readonly IMapper _mapper;
         public ClientController(IMapper mapper)

@@ -32,7 +32,13 @@ namespace AdminSolution
         {
 
             services.AddAutoMapper();
-            services.AddMvc();
+            services.AddMvc(options => {
+                //an instant  
+                options.Filters.Add(new CustomActionFilters());
+                //By the type  
+                options.Filters.Add(typeof(CustomActionFilters));
+            });
+
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
                 builder.AllowAnyOrigin()

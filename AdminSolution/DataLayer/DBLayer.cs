@@ -28,7 +28,7 @@ namespace AdminSolution.DataLayer
             {
                 modelBuilder.Entity<ClientContacts>().ToTable("ClientContact");
                 modelBuilder.Entity<ClientContacts>().Property(p => p.ID).ValueGeneratedOnAdd();
-
+        
             }
         }
     }
