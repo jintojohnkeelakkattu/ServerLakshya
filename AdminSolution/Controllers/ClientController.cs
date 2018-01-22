@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Cors;
 using System.Net;
 using AutoMapper;
 using AdminSolution.DataLayer;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace AdminSolution.Controllers
 {
@@ -24,28 +26,47 @@ namespace AdminSolution.Controllers
             _mapper = mapper;
         }
         [HttpPost]
-        public HttpResponseMessage postRegisterClient([FromBody]ClientContact obClientContact)
+        public IActionResult postRegisterClient([FromBody]ClientContact obClientContact)
         {
             try
             {
-                if (ModelState.IsValid)
+
+                
+                var ClientContactObject = new ClientContacts()
                 {
-                    var user = _mapper.Map<ClientContacts>(obClientContact);
-                    return new HttpResponseMessage(HttpStatusCode.OK);
+                    clientName = obClientContact.clientName,
+                    clientAddress = obClientContact.clientAddress,
+                    alternateNumber = obClientContact.alternateNumber,
+                    contactNumber = obClientContact.contactNumber,
+                    emailAddress = obClientContact.emailAddress
+
+                };
+
+                var result=   ClientContactObject.DataInsertToTable(ClientContactObject);
+
+                if (result > 0)
+                {
+
+                    return Ok(result);
                 }
-                    
-               else
+                else
                 {
-                    return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                    throw new Exception("Insertion Failed,Contact your Admin");
                 }
 
-            }
+
+           }
             catch (Exception ex)
             {
-                return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                return NotFound(ex);
             }
         }
+        [HttpGet]
+        public IEnumerable<ClientContacts> getClientContactDetails(string ContactNo)
+        {
+               return new ClientContacts().getClientDetails(ContactNo);
 
+        }
         [HttpGet]
         public HttpResponseMessage getData()
         {
@@ -53,5 +74,6 @@ namespace AdminSolution.Controllers
             nn.Content.Headers.Add("sss", "ssssss");
             return nn;
         }
+
     }
 }

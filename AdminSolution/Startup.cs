@@ -8,9 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using static AdminSolution.DataLayer.DBLayer;
+
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using AdminSolution.DataLayer;
 
 namespace AdminSolution
 {
@@ -46,8 +47,8 @@ namespace AdminSolution
                        .AllowAnyHeader();
             }));
 
-            services.AddDbContext<DbLayerContext>(options =>
-       options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+       //     services.AddDbContext<DbLayerContext>(options =>
+       //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

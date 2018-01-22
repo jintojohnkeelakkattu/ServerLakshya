@@ -10,7 +10,7 @@ using System;
 
 namespace AdminSolution.Migrations
 {
-    [DbContext(typeof(DBLayer.DbLayerContext))]
+    [DbContext(typeof(DbLayerContext))]
     partial class DbLayerContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

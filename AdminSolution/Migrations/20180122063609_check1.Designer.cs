@@ -10,9 +10,9 @@ using System;
 
 namespace AdminSolution.Migrations
 {
-    [DbContext(typeof(DBLayer.DbLayerContext))]
-    [Migration("20180117132647_default")]
-    partial class @default
+    [DbContext(typeof(DbLayerContext))]
+    [Migration("20180122063609_check1")]
+    partial class check1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

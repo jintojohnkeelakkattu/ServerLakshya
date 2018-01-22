@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace AdminSolution.Migrations
 {
-    public partial class @default : Migration
+    public partial class check1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
