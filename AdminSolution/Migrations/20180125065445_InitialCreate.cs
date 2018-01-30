@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace AdminSolution.Migrations
 {
-    public partial class check1 : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,13 +13,13 @@ namespace AdminSolution.Migrations
                 name: "ClientContact",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    alternateNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    clientAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    clientName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    contactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    emailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    alternateNumber = table.Column<string>(nullable: true),
+                    clientAddress = table.Column<string>(nullable: true),
+                    clientName = table.Column<string>(nullable: true),
+                    contactNumber = table.Column<string>(nullable: true),
+                    emailAddress = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

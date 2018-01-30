@@ -14,6 +14,7 @@ namespace AdminSolution.Models
 
     public class ClientContact
     {
+        public int Id { get; set; } = 0;
         [StringLength(50)]
         [Required(ErrorMessage = "ClientName is Must")]
         [JsonProperty("clientName")]

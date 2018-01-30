@@ -9,15 +9,24 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace AdminSolution.DataLayer
 {
+
     public class DbLayerContext: DbContext
     {
 
-        //public DbLayerContext(DbContextOptions<DbLayerContext> options)
-        //    : base(options)
-        //    {
+        //public DbLayerContext(DbContextOptions options) : base(options)
+        //{
 
-        //    }
-            public DbSet<ClientContacts> ClientContacts
+        //}
+        public DbLayerContext()
+        {
+        }
+
+        public DbLayerContext(DbContextOptions<DbLayerContext> options)
+            : base(options)
+        {
+
+        }
+        public DbSet<ClientContacts> ClientContacts
             {
                 get;
                 set;
@@ -26,12 +35,11 @@ namespace AdminSolution.DataLayer
             {
                 modelBuilder.Entity<ClientContacts>().ToTable("ClientContact");
                 modelBuilder.Entity<ClientContacts>().Property(p => p.ID).ValueGeneratedOnAdd();
-        
             }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Data Source=.\SQLEXPRESS;Initial Catalog=Sample;Integrated Security=True;Trusted_Connection=True;MultipleActiveResultSets=true");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(@"Data Source=.\SQLEXPRESS;Initial Catalog=Sample;Integrated Security=True;Trusted_Connection=True;MultipleActiveResultSets=true");
+        //}
 
     }
 }

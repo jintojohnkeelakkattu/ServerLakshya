@@ -11,14 +11,14 @@ using System;
 namespace AdminSolution.Migrations
 {
     [DbContext(typeof(DbLayerContext))]
-    [Migration("20180122063609_check1")]
-    partial class check1
+    [Migration("20180125065445_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
+                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("AdminSolution.DataLayer.ClientContacts", b =>

@@ -21,9 +21,11 @@ namespace AdminSolution.Controllers
     public class ClientController : HomeController
     {
         private readonly IMapper _mapper;
-        public ClientController(IMapper mapper)
+        private readonly DbLayerContext _dbContext;
+        public ClientController(IMapper mapper, DbLayerContext context)
         {
             _mapper = mapper;
+            _dbContext = context;
         }
         [HttpPost]
         public IActionResult postRegisterClient([FromBody]ClientContact obClientContact)
@@ -31,7 +33,7 @@ namespace AdminSolution.Controllers
             try
             {
 
-                
+
                 var ClientContactObject = new ClientContacts()
                 {
                     clientName = obClientContact.clientName,
@@ -42,7 +44,7 @@ namespace AdminSolution.Controllers
 
                 };
 
-                var result=   ClientContactObject.DataInsertToTable(ClientContactObject);
+                var result = ClientContactObject.DataInsertToTable(ClientContactObject, _dbContext);
 
                 if (result > 0)
                 {
@@ -55,20 +57,57 @@ namespace AdminSolution.Controllers
                 }
 
 
-           }
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+        }
+        [HttpPost]
+        public IActionResult putRegisterClient([FromBody]ClientContact obClientContact)
+        {
+            try
+            {
+
+
+                var ClientContactObject = new ClientContacts()
+                {
+                    ID = obClientContact.Id,
+                    clientName = obClientContact.clientName,
+                    clientAddress = obClientContact.clientAddress,
+                    alternateNumber = obClientContact.alternateNumber,
+                    contactNumber = obClientContact.contactNumber,
+                    emailAddress = obClientContact.emailAddress
+
+                };
+
+                var result = ClientContactObject.DataUpdateToTable(ClientContactObject, _dbContext);
+
+                if (result > 0)
+                {
+
+                    return Ok(result);
+                }
+                else
+                {
+                    throw new Exception("Updation Failed,Contact your Admin");
+                }
+
+
+            }
             catch (Exception ex)
             {
                 return NotFound(ex);
             }
         }
         [HttpGet]
-        public IEnumerable<ClientContacts> getClientContactDetails(string ContactNo)
+        public ClientContacts getClientContactDetails(string ContactNo)
         {
-               return new ClientContacts().getClientDetails(ContactNo);
+            return new ClientContacts().getClientDetails(ContactNo, _dbContext);
 
         }
         [HttpGet]
-        public HttpResponseMessage getData()
+        public HttpResponseMessage getData(int id)
         {
             HttpResponseMessage nn = new HttpResponseMessage();
             nn.Content.Headers.Add("sss", "ssssss");

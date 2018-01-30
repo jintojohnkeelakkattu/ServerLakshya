@@ -42,22 +42,22 @@ namespace AdminSolution.DataLayer
             set;
         }
 
-        public int DataInsertToTable(ClientContacts ObClientContacts)
+        public int DataInsertToTable(ClientContacts ObClientContacts, DbLayerContext obDbLayerContext)
         {
             //DbLayerContext obDbLayerContext = new DbLayerContext();
             int result = 0;
 
             try
             {
-                var Requst = new ClientContacts() {
+                var Requst = new ClientContacts()
+                {
                     clientName = ObClientContacts.clientName,
                     clientAddress = ObClientContacts.clientAddress,
                     emailAddress = ObClientContacts.emailAddress,
                     contactNumber = ObClientContacts.contactNumber,
                     alternateNumber = ObClientContacts.alternateNumber
                 };
-                using (var obDbLayerContext = new DbLayerContext())
-                {
+           
                     var stud = obDbLayerContext.ClientContacts.Select(s => new ClientContacts
                     {
                         ID = s.ID,
@@ -71,7 +71,7 @@ namespace AdminSolution.DataLayer
                     }
                     else
                     {
-                        throw new Exception( "Client Already Added..");
+                        throw new Exception("Client Already Added..");
                     }
                     var Results = obDbLayerContext.ClientContacts.Select(s => new ClientContacts
                     {
@@ -83,7 +83,7 @@ namespace AdminSolution.DataLayer
                     {
                         result = Results.ID;
                     }
-                }
+                
 
                 return result;
 
@@ -94,21 +94,58 @@ namespace AdminSolution.DataLayer
             }
 
         }
-        public List<ClientContacts> getClientDetails(string contactNo)
+
+        internal int DataUpdateToTable(ClientContacts ObClientContacts, DbLayerContext obDbLayerContext)
         {
-            List<ClientContacts> ResultList = new List<ClientContacts>();
+            //DbLayerContext obDbLayerContext = new DbLayerContext();
+           
+
             try
             {
-                using (var obDbLayerContext = new DbLayerContext())
-                {
+                 var resultS = obDbLayerContext.ClientContacts.SingleOrDefault(b => b.ID == ObClientContacts.ID);
+                    if (resultS != null)
+                    {
+                    try
+                        {
+                            resultS.clientName = ObClientContacts.clientName;
+                            resultS.clientAddress= ObClientContacts.clientAddress;
+                            resultS.emailAddress = ObClientContacts.emailAddress;
+                            resultS.alternateNumber = ObClientContacts.alternateNumber;
+                            resultS.contactNumber = ObClientContacts.contactNumber;
+                            obDbLayerContext.SaveChanges();
+                        }
+                        catch (Exception ex)
+                        {
+                            throw;
+                        }
+                    }
+                
+
+                return ObClientContacts.ID;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ClientContacts getClientDetails(string contactNo, DbLayerContext obDbLayerContext)
+        {
+            ClientContacts ResultList = new ClientContacts();
+            try
+            {
+
                     var Results = obDbLayerContext.ClientContacts.Select(s => new ClientContacts
                     {
                         ID = s.ID,
                         clientName = s.clientName,
-                        contactNumber = s.contactNumber
-                    }).Where(s => s.contactNumber == contactNo).ToList();
+                        contactNumber = s.contactNumber,
+                        clientAddress=s.clientAddress,
+                        alternateNumber=s.alternateNumber,
+                        emailAddress=s.emailAddress
+                    }).Where(s => s.contactNumber == contactNo).FirstOrDefault();
                     ResultList = Results;
-                }
             }
             catch (Exception)
             {
