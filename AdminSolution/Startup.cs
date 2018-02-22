@@ -70,6 +70,7 @@ namespace AdminSolution
                 template: "{controller}/{action}/{id?}",
                 defaults: new { controller = "Values", action = "Get" });
             });
+           // app.UseMvc(c=>c.map)
         }
     }
 }

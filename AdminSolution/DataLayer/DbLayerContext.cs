@@ -31,11 +31,18 @@ namespace AdminSolution.DataLayer
                 get;
                 set;
             }
-            protected override void OnModelCreating(ModelBuilder modelBuilder)
-            {
-                modelBuilder.Entity<ClientContacts>().ToTable("ClientContact");
-                modelBuilder.Entity<ClientContacts>().Property(p => p.ID).ValueGeneratedOnAdd();
-            }
+        public DbSet<Events> Events
+        {
+            get;
+            set;
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ClientContacts>().ToTable("ClientContact");
+            modelBuilder.Entity<ClientContacts>().Property(p => p.ID).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Events>().ToTable("Events");
+            modelBuilder.Entity<Events>().Property(p => p.Id).ValueGeneratedOnAdd();
+        }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    optionsBuilder.UseSqlServer(@"Data Source=.\SQLEXPRESS;Initial Catalog=Sample;Integrated Security=True;Trusted_Connection=True;MultipleActiveResultSets=true");

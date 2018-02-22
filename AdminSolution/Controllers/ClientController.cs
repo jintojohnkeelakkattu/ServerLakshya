@@ -114,5 +114,30 @@ namespace AdminSolution.Controllers
             return nn;
         }
 
+        [Route("Api/Event")]
+        [HttpPost]
+        public Events CraeteNewEvent([FromBody]Event obEvents)
+        {
+            try
+            {
+                var EventObject = new Events()
+                {
+                    RequstedService = obEvents.RequstedService,
+                    EventDate = obEvents.EventDate,
+                    EventLocation = obEvents.EventLocation,
+                    EventType = obEvents.EventType,
+                    ClientId =  obEvents.ClientId
+                };
+
+                return EventObject.InsertEvent(EventObject, _dbContext);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

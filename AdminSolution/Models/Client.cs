@@ -9,7 +9,7 @@ namespace AdminSolution.Models
 {
     public class Client
     {
-        
+
     }
 
     public class ClientContact
@@ -56,4 +56,5 @@ namespace AdminSolution.Models
             set;
         }
     }
+   
 }

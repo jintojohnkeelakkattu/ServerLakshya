@@ -11,8 +11,8 @@ using System;
 namespace AdminSolution.Migrations
 {
     [DbContext(typeof(DbLayerContext))]
-    [Migration("20180125065445_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20180131105621_check")]
+    partial class check
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,6 +39,35 @@ namespace AdminSolution.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("ClientContact");
+                });
+
+            modelBuilder.Entity("AdminSolution.DataLayer.Events", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("ClientContactsID");
+
+                    b.Property<string>("EventDate");
+
+                    b.Property<string>("EventLocation");
+
+                    b.Property<string>("EventType");
+
+                    b.Property<string>("RequstedService");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientContactsID");
+
+                    b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("AdminSolution.DataLayer.Events", b =>
+                {
+                    b.HasOne("AdminSolution.DataLayer.ClientContacts", "ClientContacts")
+                        .WithMany("Events")
+                        .HasForeignKey("ClientContactsID");
                 });
 #pragma warning restore 612, 618
         }

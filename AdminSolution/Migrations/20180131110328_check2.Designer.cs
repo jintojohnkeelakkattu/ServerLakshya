@@ -11,9 +11,10 @@ using System;
 namespace AdminSolution.Migrations
 {
     [DbContext(typeof(DbLayerContext))]
-    partial class DbLayerContextModelSnapshot : ModelSnapshot
+    [Migration("20180131110328_check2")]
+    partial class check2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

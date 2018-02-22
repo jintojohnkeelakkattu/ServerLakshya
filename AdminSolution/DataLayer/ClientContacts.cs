@@ -41,6 +41,8 @@ namespace AdminSolution.DataLayer
             get;
             set;
         }
+        [ForeignKey("ClientId")]
+        public ICollection<Events> Events { get; set; }
 
         public int DataInsertToTable(ClientContacts ObClientContacts, DbLayerContext obDbLayerContext)
         {
